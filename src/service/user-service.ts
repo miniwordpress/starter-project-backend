@@ -17,19 +17,38 @@ export class UsersService {
     return await this.usersRepository.save(newUser);
   }
 
-  getAllUsers(): Promise<UserResponse[]> {
+  getAllUsers(): Promise<User[]> {
     return this.usersRepository.find();
   }
 
-  getUser(id: number): Promise<UserResponse | null> {
+  getUser(id: number): Promise<User | null> {
     return this.usersRepository.findOneBy({ id });
   }
 
-  updateUser(updateUserRequest: UserRequest): Promise<UserResponse> {
-    return this.usersRepository.save(updateUserRequest);
+  async updateUser(
+    id: number,
+    updateUserRequest: UserRequest,
+  ): Promise<User | null> {
+    const existingUser = await this.usersRepository.findOneBy({ id });
+    existingUser.username = updateUserRequest.username;
+    existingUser.firstName = updateUserRequest.firstName;
+    existingUser.lastName = updateUserRequest.lastName;
+    existingUser.email = updateUserRequest.email;
+    existingUser.tel = updateUserRequest.tel;
+
+    if (!existingUser) {
+      throw new Error('No existingUser');
+    }
+
+    const updatedUser = await this.usersRepository.save(existingUser);
+    return updatedUser;
   }
 
   async deleteUser(id: number): Promise<void> {
     await this.usersRepository.delete(id);
+  }
+
+  getCheckAPI(): string {
+    return 'IT WORK !';
   }
 }
