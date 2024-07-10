@@ -3,7 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../entity/user-entity';
 import { UsersService } from '../service/user-service';
 import { UserController } from '../controller/user-controller';
-
+import { HealthModule } from './healt.module';
+import { HttpModule } from '@nestjs/axios' 
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'postgres',
@@ -14,7 +15,7 @@ import { UserController } from '../controller/user-controller';
     database: 'starter_db', // Change to your database name
     entities: [User],
     synchronize: true, // Set to false in production
-  }), TypeOrmModule.forFeature([User])],
+  }), TypeOrmModule.forFeature([User]), HealthModule, HttpModule],
   providers: [UsersService],
   controllers: [UserController],
 })

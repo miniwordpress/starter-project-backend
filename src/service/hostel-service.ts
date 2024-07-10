@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { HostelDetail } from 'src/entity/hostel-entity';
 import { HostelRequest } from 'src/model/dto/request/hostel-request';
-import { HostelResponse } from 'src/model/dto/response/hostel-response';
+import { HostelResponse } from 'src/model/dto/response/hostel-response'
 import { promises } from 'dns';
 
 @Injectable()
