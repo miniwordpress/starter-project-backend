@@ -5,6 +5,6 @@ export class HostelResponse {
   address: string;
   tel: string;
   email: string;
-  price: number;s
+  price: number;
   description: string;
 }
